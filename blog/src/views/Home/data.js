@@ -1,0 +1,44 @@
+export const list = [{
+  id: 1,
+  pic: 'pet1',
+  title: '可爱萨摩耶',
+  desc: '狗狗',
+  hits: 3,
+  likes: 1
+}, {
+  id: 2,
+  pic: 'pet2',
+  title: '蠢萌哈士奇',
+  desc: '狗狗',
+  hits: 5,
+  likes: 2
+}, {
+  id: 3,
+  pic: 'pet3',
+  title: '呆呆小猫咪',
+  desc: '猫猫',
+  hits: 6,
+  likes: 3
+}, {
+  id: 4,
+  pic: 'pet4',
+  title: '乖巧小美丽',
+  desc: '狗狗',
+  hits: 3,
+  likes: 1
+}, {
+  id: 5,
+  pic: 'pet5',
+  title: '可爱小兔纸',
+  desc: '兔兔',
+  hits: 5,
+  likes: 3
+}, {
+  id: 6,
+  pic: 'pet6',
+  title: '憨态大熊猫',
+  desc: '兽兽',
+  hits: 10,
+  likes: 7
+}
+]

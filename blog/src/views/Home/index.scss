@@ -1,0 +1,41 @@
+@import '@/style/common.scss';
+.pageWrapper {
+  min-height: 100vh;
+  background-color: #f1f1f1;
+  padding-bottom: .2rem;
+  position: relative;
+  .rotation {
+    width: 5rem;
+    height: 100%;
+  }
+  .van-divider {
+    font-family: serif;
+    font-size: .36rem;
+  }
+  .cardGroup {
+    .card {
+      @include flex-center(row, space-between);
+      background-color: #fff;
+      margin: .32rem .5rem;
+      border-radius: .2rem;
+      font-size: .3rem;
+      color: #333;
+      padding: .2rem 1.4rem .2rem .8rem;
+      .cardImg {
+        display: inline-block;
+        width: .64rem;
+        height: .64rem;
+      }
+      .cardDetail {
+        .desc {
+          font-size: .18rem;
+          line-height: .36rem;
+        }
+        .stastic {
+          color: #666;
+          font-size: .14rem;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,41 @@
+export const typesList = [{
+  tit: '快乐老家',
+  icon: 'shop-collect-o',
+  to: '/Types/home',
+  id: 1
+}, {
+  tit: '王者荣耀',
+  icon: 'gem-o',
+  to: '/Types/home',
+  id: 2
+}, {
+  tit: '哈哈哈哈',
+  icon: 'smile-o',
+  to: '/',
+  id: 3
+}, {
+  tit: '嘻嘻嘻嘻',
+  icon: 'flower-o',
+  to: '/',
+  id: 4
+}, {
+  tit: '啦啦啦啦',
+  icon: 'smile-comment-o',
+  to: '/',
+  id: 5
+}, {
+  tit: '嘿嘿嘿',
+  icon: 'vip-card-o',
+  to: '/',
+  id: 6
+}, {
+  tit: '咦嘻呀看',
+  icon: 'video-o',
+  to: '/',
+  id: 7
+}, {
+  tit: '黑土白云',
+  icon: 'gift-card-o',
+  to: '/',
+  id: 8
+}]

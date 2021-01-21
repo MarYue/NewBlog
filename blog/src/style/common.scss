@@ -1,0 +1,64 @@
+// 弹性盒子居中
+@mixin flex-center($direction: row, $justify: center, $align: center, $flex-wrap: null) {
+  display: -webkit-flex;
+  display: flex;
+  @if ($direction != null) {
+    flex-direction: $direction;
+    -webkit-flex-direction: $direction;
+  }
+  @if ($justify != null) {
+    justify-content: $justify;
+    -webkit-justify-content: $justify;
+  }
+  @if ($align != null) {
+    align-items: $align;
+    -webkit-align-item: $align;
+  }
+  @if ($flex-wrap != null) {
+    flex-wrap: $flex-wrap;
+    -webkit-flex-wrap: $flex-wrap;
+  }
+}
+
+/* 行高 */
+@mixin line-height($height: 30px, $line-height: null) {
+  @if ($height != null) {
+    height: $height;
+    line-height: $height;
+  }
+  @if ($line-height != null) {
+    line-height: $line-height;
+  }
+}
+
+/* 背景图 */
+@mixin bg-image($url, $repeat: no-repeat, $position: center, $size: cover) {
+  background-image: url($url + "@2x.png");
+  @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
+    background-image: url($url + "@3x.png");
+  }
+  background-repeat: $repeat;
+  background-position: $position;
+  background-size: $size;
+}
+
+/*文本格式化，超出范围，显示省略号*/
+@mixin text-overflow($ls) {
+  white-space: nowrap;
+  -ms-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $ls;
+}
+
+/* 圆形盒子 */
+@mixin circle($size: 11px, $bg: #fff) {
+  border-radius: 50%;
+  width: $size;
+  height: $size;
+  line-height: $size;
+  text-align: center;
+  background: $bg;
+}
