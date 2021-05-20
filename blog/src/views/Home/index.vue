@@ -19,6 +19,7 @@
       </div>
     </div>
     <Toast :show-toast="isLoading" :toast-arr="str" />
+    <CountVuex />
     <!-- <Login /> -->
   </section>
 </template>
@@ -28,15 +29,16 @@ import Vue from 'vue'
 import { Divider } from 'vant'
 import Toast from '@/components/toast'
 import Login from '@/components/login'
+import CountVuex from '@/components/countVuex'
 import utils from '@/utils'
 import { list } from './data'
 Vue.use(Divider)
 const { getImgs } = utils
-
+// const { parse } = require('querystring')
 export default {
   name: 'HelloWorld',
   components: {
-    Toast, Login
+    Toast, Login, CountVuex
   },
   data () {
     return {
@@ -60,6 +62,24 @@ export default {
       console.log(e.currentTarget.id)
       // this.$router.push({path: `/Home/${e.currentTarget.id}`})
     }
+    // wxLogin () {
+    //   // // 本地未存储用户信息
+    //   // if (!userInfo || !userInfo.unionid) {
+    //   const { href, search } = window.location
+    //   const { code, cbUrl } = parse(search.substr(1))
+    //   if (!code) {
+    //     window.location.replace(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${href}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`)
+    //   } else if (code) {
+    //     window.history.replaceState(null, null, '/wxLogin')
+    //     // 通过code获取unionid
+    //     http.get('/authorize/tencent', { code, release: 'SALE' }).then(userInfo => {
+    //       // unionid加入缓存
+    //       window.sessionStorage.setItem('userInfo', JSON.stringify(userInfo))
+    //       // 跳转至原页面
+    //       cbUrl && window.location.replace(cbUrl)
+    //     }).catch(err => {})
+    //   }
+    // }
   }
 }
 </script>
