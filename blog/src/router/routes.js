@@ -8,4 +8,10 @@ export default [
   }, {
     path: '/User',
     folderPath: '/User/index'
+  }, {
+    path: '/Demo/VuexDemo',
+    folderPath: '/Demo/VuexDemo'
+  }, {
+    path: '/Demo/PinyinDemo',
+    folderPath: '/Demo/PinyinDemo'
   }]

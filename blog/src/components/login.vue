@@ -1,5 +1,5 @@
 <template>
-  <section class="page">
+  <section v-if="showLogin" class="page">
     <div class="login">
       <ul class="nav nav-tabs">
         <li v-for="(item, idx) in tabs" :key="idx" :class="{active:idx === tabIdx}" @click="toggleTabs(idx)">{{ item }}</li>
@@ -69,15 +69,21 @@ export default {
       tabs: ['登录', '注册'],
       tabIdx: 0,
       loginArr,
-      registerArr
+      registerArr,
+      showLogin: false
     }
   },
   methods: {
+    _show () {
+      this.showLogin = true
+    },
     toggleTabs (idx) {
       this.tabIdx = idx
     },
     login (e) {
       console.log(e)
+      sessionStorage.setItem('hasLogin', true)
+      this.showLogin = false
     },
     register (e) {
       console.log(e)

@@ -9,12 +9,18 @@
     <button @click="add(0.5)">+</button>
     <!-- <button @click="$store.commit('reduce')">-</button> -->
     <button @click="reduce">-</button>
+    <p>
+       <button @click="addAction">异步 + </button>
+      <button @click="reduceAction">异步 - </button>
+    </p>
+    <hr />
+    <button class="back" @click="goBack">返回</button>
   </div>
 </template>
 
 <script>
 import store from '../../vuex/store'
-import { mapState, mapMutations, mapGetters } from 'vuex'
+import { mapState, mapMutations, mapGetters, mapActions } from 'vuex'
 export default {
   name: 'CountVuex',
   data () {
@@ -22,7 +28,13 @@ export default {
       msg: 'Hello, Vuex!'
     }
   },
-  methods: mapMutations(['add', 'reduce']),
+  methods: {
+    ...mapMutations(['add', 'reduce']),
+    ...mapActions(['addAction', 'reduceAction']),
+    goBack () {
+      this.$router.go(-1)
+    }
+  },
   // // 方法一：通过computed的计算属性直接赋值
   // computed: {
   //   count () {
