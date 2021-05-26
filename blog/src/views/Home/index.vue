@@ -5,7 +5,6 @@
         <!-- <div class="rotation" /> -->
         <img class="rotation" src="./images/冬天.png">
         <van-divider :style="{color:'#FFCD43',borderColor:'#000'}">最新文章</van-divider>
-        <button @click="showToast">点我</button>
         <div class="cardGroup">
           <div class="card" v-for="(item, idx) in list" :key="idx" @click="to($event)" :ID="item.id">
             <img :src="images[item.pic]" class="cardImg" alt="">
@@ -18,9 +17,10 @@
         </div>
       </div>
     </div>
+    <button @click="showToast">更多</button>
+    <button @click="showUser">个人中心</button>
     <Toast :show-toast="isLoading" :toast-arr="str" />
-    <CountVuex />
-    <!-- <Login /> -->
+    <Login ref="login"/>
   </section>
 </template>
 
@@ -29,7 +29,6 @@ import Vue from 'vue'
 import { Divider } from 'vant'
 import Toast from '@/components/toast'
 import Login from '@/components/login'
-import CountVuex from '@/components/countVuex'
 import utils from '@/utils'
 import { list } from './data'
 Vue.use(Divider)
@@ -38,7 +37,7 @@ const { getImgs } = utils
 export default {
   name: 'HelloWorld',
   components: {
-    Toast, Login, CountVuex
+    Toast, Login
   },
   data () {
     return {
@@ -51,12 +50,19 @@ export default {
   },
   mounted () {
     // console.log(this.list)
+    const hasLogin = sessionStorage.getItem('hasLogin')
+    if (!hasLogin) {
+      this.$refs.login._show()
+    }
   },
   methods: {
     showToast () {
       this.str = 'hello'
       // this.isLoading = this.isLoading !== true
       this.$router.push('/Types')
+    },
+    showUser () {
+      this.$router.push('/User')
     },
     to (e) {
       console.log(e.currentTarget.id)

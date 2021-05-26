@@ -1,17 +1,17 @@
 export const typesList = [{
   tit: '快乐老家',
   icon: 'shop-collect-o',
-  to: '/Types/home',
+  to: '/',
   id: 1
 }, {
-  tit: '王者荣耀',
+  tit: 'git项目例子',
   icon: 'gem-o',
-  to: '/Types/home',
+  to: '/Demo/PinyinDemo',
   id: 2
 }, {
-  tit: '哈哈哈哈',
+  tit: 'Vuex例子',
   icon: 'smile-o',
-  to: '/',
+  to: '/Demo/VuexDemo',
   id: 3
 }, {
   tit: '嘻嘻嘻嘻',
