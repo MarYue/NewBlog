@@ -33,3 +33,8 @@ if(env === 'production') {
     host: '127.0.0.1'  // 要换成正式地址
   }
 }
+
+module.exports = {
+  MYSQL_CONF,
+  REDIS_CONF
+}

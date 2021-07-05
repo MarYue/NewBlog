@@ -25,7 +25,7 @@ const register = async(username, password, realname, email) => {
   if(testData.length > 0) {
     return {
       num: testData.length,
-      id: 0
+      id: 0 
     }
   }
   const sql = `insert into users(username, realname, password, email, likes, goods) values ${username}, ${realname}, ${password}, ${email}, '', '')`
