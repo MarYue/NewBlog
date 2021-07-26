@@ -16,6 +16,11 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+@import '@/style/common.scss';
+.page {
+  min-height: 100vh;
+  background-color: #f1f1f1;
+  padding-top: .4rem;
+}
 </style>

@@ -16,7 +16,7 @@ export const typesList = [{
 }, {
   tit: '嘻嘻嘻嘻',
   icon: 'flower-o',
-  to: '/',
+  to: '/Demo/Calendar',
   id: 4
 }, {
   tit: '啦啦啦啦',
