@@ -20,6 +20,16 @@
   }
 }
 
+// 居中
+@mixin flex-again($align: center) {
+  display: -webkit-flex;
+  display: flex;
+  @if ($align != null) {
+    align-items: $align;
+    -webkit-align-item: $align;
+  }
+}
+
 /* 行高 */
 @mixin line-height($height: 30px, $line-height: null) {
   @if ($height != null) {

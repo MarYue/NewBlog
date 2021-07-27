@@ -14,14 +14,14 @@ export const typesList = [{
   to: '/Demo/VuexDemo',
   id: 3
 }, {
-  tit: '嘻嘻嘻嘻',
+  tit: '日历组件',
   icon: 'flower-o',
   to: '/Demo/Calendar',
   id: 4
 }, {
-  tit: '啦啦啦啦',
+  tit: '改编日历组件',
   icon: 'smile-comment-o',
-  to: '/',
+  to: '/Demo/MyCalendar',
   id: 5
 }, {
   tit: '嘿嘿嘿',
