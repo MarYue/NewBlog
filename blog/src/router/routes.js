@@ -17,4 +17,7 @@ export default [
   }, {
     path: '/Demo/Calendar',
     folderPath: '/Demo/Calendar'
+  }, {
+    path: '/Demo/MyCalendar',
+    folderPath: '/Demo/MyCalendar'
   }]

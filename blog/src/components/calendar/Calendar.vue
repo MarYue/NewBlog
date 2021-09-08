@@ -68,7 +68,7 @@
 
 <script>
 import { formatDate, isDateInRange } from './util'
-// import languageUtil from '../language'
+import languageUtil from './language'
 
 export default {
   name: 'Calendar',
@@ -219,7 +219,7 @@ export default {
     }
   },
   mounted () {
-    // this.language = languageUtil[this.lang.toUpperCase()]
+    this.language = languageUtil[this.lang.toUpperCase()]
     this.calendarWeek = this.language.WEEK
     this.weekStartIndex = this.weekArray.indexOf(this.weekStart.toLowerCase())
     this.calendarWeek = [...this.calendarWeek.slice(this.weekStartIndex, this.calendarWeek.length), ...this.calendarWeek.slice(0, this.weekStartIndex)]
@@ -387,6 +387,8 @@ export default {
       this.calendarOfMonth.push(firstMonth, secondMonth, thirdMonth)
       this.calendarOfMonthShow = JSON.parse(JSON.stringify(this.calendarOfMonth))
 
+      console.log('日历')
+      console.log(this.calendarOfMonthShow)
       if (!this.scrollChangeDate && this.currentChangeIsScroll) {
         this.currentChangeIsScroll = false
         return
@@ -609,10 +611,12 @@ export default {
     },
     // 日历以星期方式展示
     showWeek (checkedDate = this.checkedDate) {
+      // 本月（当前页）的days
       let daysArr = []
       this.calendarOfMonth[1].forEach((item) => {
         daysArr.push(item.day)
       })
+      console.log(daysArr)
       let dayIndexOfMonth = daysArr.indexOf(checkedDate.day)
       // 当day为月底的天数时，有可能在daysArr的前面也存在上一个月对应的日期，所以需要取lastIndexOf
       if (checkedDate.day > 15) {
@@ -621,25 +625,34 @@ export default {
 
       // 计算当前日期在第几行
       let indexOfLine = Math.ceil((dayIndexOfMonth + 1) / 7)
+      console.log('当前选中在第' + indexOfLine + '行')
       let lastLine = indexOfLine - 1
-      this.calendarY = -(this.calendarItemHeight * lastLine)
+      // this.calendarY = -(this.calendarItemHeight * lastLine) // 计算y轴高度
 
       this.isShowWeek = true
-      this.calendarGroupHeight = this.calendarItemHeight
+      // this.calendarGroupHeight = this.calendarItemHeight // 计算日历体的高度
 
-      let currentWeek = []
+      let currentWeekTmp = []
       let sliceStart = lastLine * 7
       let sliceEnd = sliceStart + 7
       this.isLastWeekInCurrentMonth = false
-      currentWeek = this.calendarOfMonth[1].slice(sliceStart, sliceEnd)
+      currentWeekTmp = this.calendarOfMonth[1].slice(sliceStart, sliceEnd)
+      const currentWeek = currentWeekTmp.map(item => {
+        return {
+          ...item,
+          class: 'week'
+        }
+      })
+      console.log('当前选中周：')
+      console.log(currentWeek)
       for (let i in currentWeek) {
         if (currentWeek[i].day === checkedDate.day) {
           this.selectedDayIndex = i
         }
       }
 
-      let firstDayOfCurrentWeek = currentWeek[0]
-      let lastDayOfCurrentWeek = currentWeek[6]
+      let firstDayOfCurrentWeek = currentWeek[0] // 选中周的第一天
+      let lastDayOfCurrentWeek = currentWeek[6] // 选中周的最后一天
 
       if (firstDayOfCurrentWeek.month !== checkedDate.month || firstDayOfCurrentWeek.day === 1) {
         if (this.calendarOfMonth[0].slice(28, 35)[6].month !== checkedDate.month) {
@@ -669,6 +682,8 @@ export default {
       }
       this.calendarOfMonthShow[0].splice(sliceStart, 7, ...this.lastWeek)
       this.calendarOfMonthShow[2].splice(sliceStart, 7, ...this.nextWeek)
+      console.log('calendarOfMonthShow')
+      console.log(this.calendarOfMonthShow)
     },
     // 显示上一周
     getLastWeek () {
@@ -802,7 +817,8 @@ $vice-font-color: #898989;
 .calendar_body {
   position: relative;
   width: 100%;
-  margin-top: 1rem;
+  // margin-top: 1rem;
+  height: 100%;
 }
 .calendar_week {
   position: absolute;
@@ -867,6 +883,7 @@ $vice-font-color: #898989;
 }
 .calendar_day_today {
   background: $bg-color;
+  color: $main-color;
 }
 .calendar_mark_circle {
   border: 1px solid $main-color;

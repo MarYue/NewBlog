@@ -1,7 +1,13 @@
 <template>
   <section class="page">
     <div class="tit">日历</div>
-    <vue-hash-calendar visible.sync="true" style="display: block;" :picker-type="'date'" :change-year-fast="true"></vue-hash-calendar>
+    <vue-hash-calendar
+      visible.sync="true"
+      style="display: block;"
+      :picker-type="'date'"
+      :change-year-fast="true"
+      :scroll-change-date="false"
+      :max-date="maxDate"></vue-hash-calendar>
   </section>
 </template>
 
@@ -13,7 +19,11 @@ import 'vue-hash-calendar/lib/vue-hash-calendar.css'
 Vue.use(vueHashCalendar)
 
 export default {
-
+  data () {
+    return {
+      maxDate: new Date('2023-12-31')
+    }
+  }
 }
 </script>
 

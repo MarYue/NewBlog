@@ -13,14 +13,23 @@
            ref="calendarTitle">
         <slot name="action">
           <div class="calendar_title_date">
+            <!-- @click="showCalendar" -->
             <span v-if="pickerType !== 'time'"
                   class="calendar_title_date_year"
                   :class="{'calendar_title_date_active': isShowCalendar}"
-                  @click="showCalendar">{{ formatDate(`${checkedDate.year}/${this.checkedDate.month + 1}/${this.checkedDate.day}`, language.DEFAULT_DATE_FORMAT) }}</span>
+                  >{{ formatDate(`${checkedDate.year}/${this.checkedDate.month + 1}/${this.checkedDate.day}`, language.DEFAULT_DATE_FORMAT) }}</span>
             <span v-if="pickerType !== 'date'"
                   class="calendar_title_date_time"
                   :class="{'calendar_title_date_active': !isShowCalendar}"
                   @click="showTime">{{ formatDate(`${checkedDate.year}/${this.checkedDate.month + 1}/${this.checkedDate.day} ${fillNumber(checkedDate.hours)}:${fillNumber(checkedDate.minutes)}`, language.DEFAULT_TIME_FORMAT)}}</span>
+          </div>
+          <div v-if="showMonth"
+               class="calendar_confirm"
+               :class="{'today_disable': disabledDate(new Date())}"
+               @click="showYearMonthPicker">
+            <slot>
+              月
+            </slot>
           </div>
           <div v-if="showTodayButton"
                class="calendar_confirm"
@@ -107,7 +116,7 @@ import Calendar from './Calendar.vue'
 import YearMonthPicker from './YearMonthPicker.vue'
 import { formatDate } from './util'
 // import { ARROW_DOWN_IMG, ARROW_UP_IMG } from '../constant/img'
-// import languageUtil from '../language'
+import languageUtil from './language'
 
 const defaultDate = {
   year: new Date().getFullYear(),
@@ -120,11 +129,11 @@ const defaultDate = {
 export default {
   name: 'MyCalendar',
   props: {
-    // 是否支持点击日期区域快速切换年份
-    changeYearFast: {
-      type: Boolean,
-      default: false
-    },
+    // // 是否支持点击日期区域快速切换年份
+    // changeYearFast: {
+    //   type: Boolean,
+    //   default: false
+    // },
     // 是否显示 周月视图切换指示箭头，model 等于 inline 时生效
     isShowArrow: {
       type: Boolean,
@@ -149,10 +158,10 @@ export default {
       type: String,
       default: 'datetime'
     },
-    showTodayButton: {// 是否显示返回今日按钮
-      type: Boolean,
-      default: true
-    },
+    // showTodayButton: {// 是否显示返回今日按钮
+    //   type: Boolean,
+    //   default: true
+    // },
     defaultDatetime: {// 默认时间
       type: Date,
       default () {
@@ -190,6 +199,7 @@ export default {
     return {
       // arrowDownImg: ARROW_DOWN_IMG,
       // arrowUpImg: ARROW_UP_IMG,
+      changeYearFast: false,
       language: {}, // 使用的语言包
       checkedDate: defaultDate, // 被选中的日期
       isShowWeek: false,
@@ -198,15 +208,18 @@ export default {
       calendarTitleHeight: 0, // 日历组件标题高度
       firstTimes: true, // 第一次触发
       currDateTime: new Date(), // 当前日期
-      yearMonthType: 'date' // 年月选择面板默认展示类型
+      yearMonthType: 'date', // 年月选择面板默认展示类型
+      showMonth: true, // 是否显示月按钮
+      showTodayButton: false // 是否显示返回今日按钮
     }
   },
   mounted () {
     if (this.model === 'inline') {
       this.isShowDatetimePicker = true
+      this.showCalendar()
     }
 
-    // this.language = languageUtil[this.lang.toUpperCase()]
+    this.language = languageUtil[this.lang.toUpperCase()]
   },
   watch: {
     defaultDatetime: {
@@ -304,7 +317,7 @@ export default {
     },
     today () {
       if (this.disabledDate(new Date())) return
-
+      this.showTodayButton = false
       this.$refs.calendar.today()
     },
     dateChange (date) {
@@ -322,15 +335,25 @@ export default {
         fDate = formatDate(fDate, this.format, this.lang)
       }
 
+      const checked = new Date(`${this.checkedDate.year}/${this.checkedDate.month + 1}/${this.checkedDate.day}`)
+      const today = new Date(`${defaultDate.year}/${defaultDate.month + 1}/${defaultDate.day}`)
+      if (checked.toDateString() === today.toDateString()) {
+        this.showTodayButton = false
+      } else {
+        this.showTodayButton = true
+      }
+
       // 控制点击之后进入下一选择面板
       if (date.type) {
         switch (date.type) {
-          case 'yearRange':
-            this.yearMonthType = 'year'
-            break
-          case 'year':
-            this.yearMonthType = 'month'
-            break
+          // case 'yearRange':
+          //   this.yearMonthType = 'year'
+          //   break
+          // case 'year':
+          //   this.yearMonthType = 'month'
+          //   break
+
+          // 只想要月视图
           case 'month':
             this.currDateTime = new Date(fDate)
             this.yearMonthType = 'date'
@@ -388,14 +411,22 @@ export default {
     },
     // 显示年月选择面板
     showYearMonthPicker () {
+      this.changeYearFast = true
       if (!this.changeYearFast) return
 
+      // if (this.yearMonthType === 'date') {
+      //   this.yearMonthType = 'month'
+      // } else if (this.yearMonthType === 'month') {
+      //   this.yearMonthType = 'year'
+      // } else if (this.yearMonthType === 'year') {
+      //   this.yearMonthType = 'yearRange'
+      // } else {
+      //   this.yearMonthType = 'date'
+      // }
+
+      // 只保留月选择视图
       if (this.yearMonthType === 'date') {
         this.yearMonthType = 'month'
-      } else if (this.yearMonthType === 'month') {
-        this.yearMonthType = 'year'
-      } else if (this.yearMonthType === 'year') {
-        this.yearMonthType = 'yearRange'
       } else {
         this.yearMonthType = 'date'
       }
@@ -442,56 +473,56 @@ $vice-font-color: #898989;
 .hash-calendar {
   position: fixed;
   width: 100vw;
-  height: 100vh;
+  // height: 100vh;
   top: 0;
   left: 0;
   background: rgba(0, 0, 0, 0.6);
   z-index: 999;
+  .calendar_content {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    // display: flex;
+    padding-bottom: .26rem;
+    flex-wrap: wrap;
+    background: white;
+    // height: 7.1rem;
+    overflow: hidden;
+    .calendar_title {
+      position: absolute;
+      width: 100%;
+      @include flex-center(row, space-between);
+      // left: 0;
+      // top: 0;
+      background: $bg-color;
+      border-bottom: 1px solid $bg-color;
+      font-size: .26rem;
+      z-index: 1;
+      .calendar_title_date {
+        color: $vice-font-color;
+        background: white;
+        // padding: .3rem .15rem;
+      }
+      .calendar_title_date_active {
+        color: $main-font-color;
+        font-weight: bold;
+      }
+      .calendar_title_date_time {
+        margin-left: .2rem;
+      }
+    }
+  }
 }
 .calendar_inline {
   position: relative;
   width: 100%;
   height: auto;
   background: none;
-  height: 7.1rem;
+  // height: 7.1rem;
   z-index: 1;
 }
-.calendar_content {
-  position: absolute;
-  width: 100%;
-  left: 0;
-  bottom: 0;
-  display: flex;
-  padding-bottom: .26rem;
-  flex-wrap: wrap;
-  background: white;
-  height: 7.1rem;
-  overflow: hidden;
-}
-.calendar_title {
-  position: absolute;
-  width: 100%;
-  left: 0;
-  top: 0;
-  background: $bg-color;
-  border-bottom: 1px solid $bg-color;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  z-index: 1;
-}
-.calendar_title_date {
-  color: $vice-font-color;
-  background: white;
-  padding: .3rem .15rem;
-}
-.calendar_title_date_active {
-  color: $main-font-color;
-  font-weight: bold;
-}
-.calendar_title_date_time {
-  margin-left: .2rem;
-}
+
 .calendar_confirm {
   color: $main-color;
   margin-right: .34rem;

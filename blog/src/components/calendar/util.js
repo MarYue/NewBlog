@@ -25,8 +25,8 @@ export const checkPlatform = function () {
  */
 export let formatDate = function (time, format, lang = 'CN') {
   lang = lang.toUpperCase()
-  // let language = require('../language').default[lang] || {}
-  // format = format || `${language.DEFAULT_DATE_FORMAT} ${language.DEFAULT_TIME_FORMAT}`
+  let language = require('./language').default[lang] || {}
+  format = format || `${language.DEFAULT_DATE_FORMAT} ${language.DEFAULT_TIME_FORMAT}`
   let date = time ? new Date(time) : new Date()
   let year = date.getFullYear()
   let month = date.getMonth() + 1 // 月份是从0开始的

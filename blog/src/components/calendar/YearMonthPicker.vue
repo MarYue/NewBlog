@@ -5,9 +5,10 @@
 * @CreateDate:     2021/5/26 22:53
 */
 <template>
+<!-- v-show="['year', 'yearRange', 'month'].includes(type)" -->
   <div class="year-body"
        :style="{'top': calendarTitleHeight + 'px', 'height': itemHeight * 4 + 'px'}"
-       v-show="['year', 'yearRange', 'month'].includes(type)">
+       v-show="['month', 'month', 'month'].includes(type)">
     <ScrollContainer :calendarData="yearMonthShow"
                      :disabledScroll="disabledScrollDirec"
                      @touchstart="touchStart"
@@ -36,7 +37,7 @@
 <script>
 import ScrollContainer from './ScrollContainer.vue'
 import { isDateInRange } from './util'
-// import languageUtil from '../language'
+import languageUtil from './language'
 
 export default {
   components: { ScrollContainer },
@@ -122,9 +123,9 @@ export default {
       calendarType: ['week', 'date', 'month', 'year', 'yearRange', 'datetime']
     }
   },
-  // mounted () {
-  //   this.language = languageUtil[this.lang.toUpperCase()]
-  // },
+  mounted () {
+    this.language = languageUtil[this.lang.toUpperCase()]
+  },
   watch: {
     type (val) {
       this.disabledScrollDirec = this.disabledScroll
@@ -222,7 +223,8 @@ export default {
       ]
     },
     dateClick (date, index) {
-      if (!index || !date) return
+      // if (!index || !date) return
+      if (!date) return // 1月无法选择
       if (this.isDisabled(date, index)) return
 
       let checkedDate = { ...this.calendarDate, type: this.type }
@@ -321,6 +323,7 @@ $main-color: #1c71fb;
   left: 0;
   z-index: 3;
   background: #fff;
+  font-size: .26rem;
   &-item {
     width: 33%;
     display: flex;
