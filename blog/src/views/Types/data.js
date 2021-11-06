@@ -24,9 +24,9 @@ export const typesList = [{
   to: '/Demo/MyCalendar',
   id: 5
 }, {
-  tit: '嘿嘿嘿',
+  tit: '图片上传',
   icon: 'vip-card-o',
-  to: '/',
+  to: '/Demo/Feedback',
   id: 6
 }, {
   tit: '咦嘻呀看',
