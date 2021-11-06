@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 // 调节<html>字体大小(即1rem的大小)
 (function (doc, win) {
   // 像素
@@ -41,7 +42,7 @@
   isWx && (bodyDom.className += ' wx')
   // ipx样式及ios样式
   const { height: scrH, width: scrW } = screen
-  bodyDom.className += isAndroid ? ' adr' : isIos ? scrH === 812 && scrW === 375 || scrH === 896 && scrW === 414 ? ' ipx' : ' ios' : isPc ? 'pc' : ''
+  bodyDom.className += isAndroid ? ' adr' : isIos ? (scrH === 812 && scrW === 375) || (scrH === 896 && scrW === 414) ? ' ipx' : ' ios' : isPc ? 'pc' : ''
 
   // 主题颜色
   const color = u.replace(/(.*)color=(.{1})(.*)/i, '$2')
