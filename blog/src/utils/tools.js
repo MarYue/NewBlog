@@ -22,6 +22,16 @@ const getFiles = (requireModule, suffix) => {
 
 const getImgs = requireModule => getFiles(requireModule, 'png|jpg|gif')
 
+// 移动端环境
+const mobileEnv = {
+  ios: !!ua.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),
+  adr: !!ua.match(/(Android)|(Adr)/i),
+  // 微信
+  wx: !!ua.match(/micromessenger/i),
+  // safari浏览器
+  safari: !!ua.match(/Safari/i)
+}
+
 export default {
-  getFiles, getImgs, bsEnv
+  getFiles, getImgs, bsEnv, mobileEnv
 }

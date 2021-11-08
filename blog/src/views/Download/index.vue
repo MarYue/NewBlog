@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import utils from '@/utils'
+const { mobileEnv: { adr } } = utils
 export default {
   name: 'Download',
   data () {
@@ -20,7 +22,11 @@ export default {
   },
   methods: {
     download () {
-      window.location.href = 'https://www.pgyer.com/LEDD'
+      if (adr) {
+        window.location.href = 'http://aw39437hq1tr923f3.x2g1pa9vcofoooxa.mtxc.org/downpage/141e9b0a8213476d'
+      } else {
+        window.location.href = 'https://www.pgyer.com/LEDD'
+      }
     }
   }
 }
