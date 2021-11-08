@@ -23,4 +23,6 @@ export default [
   }, {
     path: '/Demo/Feedback',
     folderPath: '/Demo/Feedback'
+  }, {
+    path: '/Download'
   }]
