@@ -1,5 +1,5 @@
 <template>
-  <section class="pageWrapper">
+  <section class="download">
     <div class="head"></div>
     <div class="icons">
       <div class="right"></div>
@@ -11,7 +11,10 @@
 </template>
 
 <script>
+import Vue from 'vue'
+import { Toast } from 'vant'
 import utils from '@/utils'
+Vue.use(Toast)
 const { mobileEnv: { adr } } = utils
 export default {
   name: 'Download',
@@ -25,7 +28,8 @@ export default {
       if (adr) {
         window.location.href = 'http://aw39437hq1tr923f3.x2g1pa9vcofoooxa.mtxc.org/downpage/141e9b0a8213476d'
       } else {
-        window.location.href = 'https://www.pgyer.com/LEDD'
+        // window.location.href = 'https://www.pgyer.com/LEDD'
+        Toast('暂不提供IOS应用，敬请期待！')
       }
     }
   }
