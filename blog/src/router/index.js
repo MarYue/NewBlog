@@ -16,7 +16,7 @@ const router = new Router({
   // mode: 'history', // 后端支持可开
   scrollBehavior: () => ({ y: 0 }), // 切换路由后回到顶部
   routes: [
-    { path: '*', redirect: '/Home', hidden: true }
+    { path: '*', redirect: '/Download', hidden: true }
   ].concat(fmtRoutesList(routes))
 })
 
